@@ -1,0 +1,149 @@
+{
+  "identity": {
+    "persona": "E1",
+    "role": "Creative Designer (Top 1%)",
+    "mission": "Create a modern, serious, yet engaging GovTech platform for AMVALI.",
+    "principles": [
+      "Fusion over Imitation: Mix GovTech seriousness with SaaS fluidity.",
+      "Emotion First: Trust, Efficiency, and Transparency.",
+      "Content is King: Data visualization and Roadmap are the heroes.",
+      "Zoom In: Focus on project details and status.",
+      "Negative Space: Use whitespace to reduce cognitive load in complex dashboards."
+    ]
+  },
+  "design_system": {
+    "theme": {
+      "primary_mode": "light",
+      "strategy": "Clean Institutional with Modern Touches"
+    },
+    "typography": {
+      "headings": {
+        "font_family": "Manrope, sans-serif",
+        "weights": ["600", "700", "800"],
+        "usage": "All section headers, page titles, and modal headers. Use tight tracking."
+      },
+      "body": {
+        "font_family": "Inter, sans-serif",
+        "weights": ["400", "500"],
+        "usage": "General text, data tables, form inputs."
+      },
+      "mono": {
+        "font_family": "JetBrains Mono, monospace",
+        "usage": "Technical IDs, code snippets, or specific data metrics."
+      }
+    },
+    "colors": {
+      "palette_name": "GovTech Modern",
+      "primary": {
+        "name": "Slate Authority",
+        "hex": "#0F172A",
+        "tailwind": "slate-900",
+        "usage": "Main navigation, primary text, strong borders."
+      },
+      "secondary": {
+        "name": "Infrastructure Teal",
+        "hex": "#0D9488",
+        "tailwind": "teal-600",
+        "usage": "Primary actions, progress bars, active states."
+      },
+      "accent": {
+        "name": "Priority Amber",
+        "hex": "#F59E0B",
+        "tailwind": "amber-500",
+        "usage": "Star rating system, warnings, highlights."
+      },
+      "background": {
+        "main": "#F8FAFC",
+        "card": "#FFFFFF",
+        "sidebar": "#FFFFFF"
+      },
+      "text": {
+        "primary": "#0F172A",
+        "secondary": "#64748B",
+        "muted": "#94A3B8"
+      },
+      "status": {
+        "success": "#10B981",
+        "error": "#EF4444",
+        "warning": "#F59E0B",
+        "info": "#3B82F6"
+      }
+    },
+    "spacing": {
+      "scale": "Generous (2x standard)",
+      "container_padding": "p-6 md:p-8 lg:p-12",
+      "grid_gap": "gap-6",
+      "section_spacing": "py-12"
+    },
+    "layout": {
+      "dashboard_grid": "Bento Grid Mode B (High Density)",
+      "marketing_grid": "Bento Grid Mode A (Tetris)",
+      "container_width": "max-w-7xl mx-auto"
+    },
+    "visual_enhancers": {
+      "borders": "1px solid #E2E8F0",
+      "shadows": "shadow-sm for cards, shadow-md for hover states",
+      "radius": "rounded-lg (8px)",
+      "glassmorphism": "Use sparingly on sticky headers: bg-white/80 backdrop-blur-md border-b border-slate-200/50"
+    }
+  },
+  "components": {
+    "library": "shadcn/ui",
+    "custom_components": [
+      {
+        "name": "StarRating",
+        "description": "Interactive 5-star rating component for project prioritization. Uses Amber-500 for active stars.",
+        "usage": "Project creation, Fila Técnica."
+      },
+      {
+        "name": "RoadmapTimeline",
+        "description": "Horizontal scrolling timeline with interactive nodes representing project stages.",
+        "usage": "Project Details page."
+      },
+      {
+        "name": "MetricCard",
+        "description": "Clean card with icon, label, value, and trend indicator.",
+        "usage": "Dashboard overview."
+      },
+      {
+        "name": "ProjectCard",
+        "description": "Card displaying project summary, status badge, and mini-roadmap.",
+        "usage": "Project List."
+      }
+    ],
+    "instructions": {
+      "buttons": "Use 'pill' shapes or slightly rounded corners (rounded-md). Primary buttons should be Teal-600. Secondary buttons Slate-100.",
+      "cards": "Flat white background, subtle border (slate-200), no shadow by default, shadow-md on hover.",
+      "inputs": "Standard Shadcn inputs, focus ring color Teal-600.",
+      "tables": "Clean rows, hover effect (bg-slate-50), sticky header."
+    }
+  },
+  "images": {
+    "hero_background": {
+      "url": "https://images.unsplash.com/photo-1590467510035-8e4c831b1243?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDB8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjaXR5JTIwYXJjaGl0ZWN0dXJlJTIwYWVyaWFsfGVufDB8fHx8MTc3MDIzNTA1NHww&ixlib=rb-4.1.0&q=85",
+      "alt": "Aerial view of modern city infrastructure",
+      "usage": "Login page background, Dashboard hero banner (with overlay)"
+    },
+    "technical_context": {
+      "url": "https://images.unsplash.com/photo-1698846296220-e44d9d4b9100?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHwxfHxjaXZpbCUyMGVuZ2luZWVyJTIwYXJjaGl0ZWN0JTIwd29ya2luZyUyMGJsdWVwcmludHxlbnwwfHx8fDE3NzAyMzUwNTd8MA&ixlib=rb-4.1.0&q=85",
+      "alt": "Architect working on blueprints",
+      "usage": "Project creation wizard, 'Technical Queue' section header"
+    },
+    "team_collaboration": {
+      "url": "https://images.unsplash.com/photo-1758691737158-18ffa31c0a46?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBkaXZlcnNlJTIwYnVzaW5lc3MlMjB0ZWFtJTIwbWVldGluZ3xlbnwwfHx8fDE3NzAyMzUwNjN8MA&ixlib=rb-4.1.0&q=85",
+      "alt": "Professional team collaborating",
+      "usage": "Team Management section, 'About' page"
+    }
+  },
+  "universal_guidelines": [
+    "Do not use generic centered layouts. Use grids.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur) for overlays.",
+    "Every interaction needs micro-animations - hover states, transitions.",
+    "Use 2-3x more spacing than feels comfortable.",
+    "All interactive elements MUST include data-testid attribute.",
+    "Do not use 'transition: all'. Animate specific properties.",
+    "Ensure high contrast for text (WCAG AA compliance)."
+  ],
+  "instructions_to_main_agent": "You are building the 'Portal IntraAMVALI'. Focus on the 'Roadmap' and 'Star Prioritization' features as they are core differentiators. Use the provided images to create a professional GovTech atmosphere. Implement the 'Bento Grid' for the main dashboard. Ensure the 'Teal' and 'Slate' color scheme is applied consistently."
+}

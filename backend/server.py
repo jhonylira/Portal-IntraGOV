@@ -148,6 +148,10 @@ class Project(BaseModel):
     cost_score: int = 1
     documents: List[str] = []
     ai_diagnosis: Optional[str] = None
+    # New fields for Municipal Module
+    desired_deadline: DesiredDeadline = DesiredDeadline.MEDIO
+    attachments: List[Dict[str, Any]] = []
+    ai_analysis: Optional[Dict[str, Any]] = None
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 

@@ -5,30 +5,76 @@ import { Badge } from '../components/ui/badge';
 import { Progress } from '../components/ui/progress';
 import { getTeam } from '../services/api';
 
+function TeamMemberCard({ member }) {
+  return (
+    <Card className="hover:shadow-md transition-shadow">
+      <CardContent className="pt-6">
+        <div className="flex items-start gap-4">
+          <div className="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center">
+            <User className="w-6 h-6 text-teal-700" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <h3 className="font-semibold text-slate-900 truncate">{member.name}</h3>
+            <p className="text-sm text-slate-500 truncate">{member.email}</p>
+          </div>
+        </div>
+        <div className="mt-4">
+          <p className="text-xs text-slate-400 mb-2">Especialidades</p>
+          <div className="flex flex-wrap gap-1">
+            {(member.specialties || []).map((spec) => (
+              <Badge key={spec} variant="outline" className="text-xs">{spec}</Badge>
+            ))}
+          </div>
+        </div>
+        <div className="mt-4 pt-4 border-t border-slate-100">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm text-slate-500">Ocupação</span>
+            <span className="text-sm font-bold">{(member.capacity_percent || 0).toFixed(0)}%</span>
+          </div>
+          <Progress value={Math.min(member.capacity_percent || 0, 100)} className="h-2" />
+        </div>
+        <div className="mt-4 grid grid-cols-2 gap-4">
+          <div className="bg-slate-50 rounded-lg p-3">
+            <div className="flex items-center gap-2">
+              <Briefcase className="w-4 h-4 text-slate-600" />
+              <span className="text-lg font-bold">{member.active_projects || 0}</span>
+            </div>
+            <p className="text-xs text-slate-500 mt-1">Projetos</p>
+          </div>
+          <div className="bg-slate-50 rounded-lg p-3">
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-slate-600" />
+              <span className="text-lg font-bold">{member.workload_hours || 40}h</span>
+            </div>
+            <p className="text-xs text-slate-500 mt-1">Carga</p>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
 function TeamPage() {
   const [team, setTeam] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const load = async () => {
-      try {
-        const response = await getTeam();
-        setTeam(response.data.team || []);
-      } catch (error) {
-        console.error('Failed to load team:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    load();
+    getTeam().then(response => {
+      setTeam(response.data.team || []);
+      setLoading(false);
+    }).catch(() => setLoading(false));
   }, []);
 
   if (loading) {
     return <div className="flex items-center justify-center h-64"><Loader2 className="w-8 h-8 animate-spin text-teal-600" /></div>;
   }
 
-  const totalCapacity = team.reduce(function(sum, m) { return sum + (m.workload_hours || 40); }, 0);
-  const usedCapacity = team.reduce(function(sum, m) { return sum + ((m.active_projects || 0) * 8); }, 0);
+  let totalCapacity = 0;
+  let usedCapacity = 0;
+  for (let i = 0; i < team.length; i++) {
+    totalCapacity += team[i].workload_hours || 40;
+    usedCapacity += (team[i].active_projects || 0) * 8;
+  }
   const overallCapacity = totalCapacity > 0 ? (usedCapacity / totalCapacity) * 100 : 0;
 
   return (
@@ -67,54 +113,7 @@ function TeamPage() {
 
       {team.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {team.map(function(member) {
-            return (
-              <Card key={member.id} className="hover:shadow-md transition-shadow">
-                <CardContent className="pt-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center">
-                      <User className="w-6 h-6 text-teal-700" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-slate-900 truncate">{member.name}</h3>
-                      <p className="text-sm text-slate-500 truncate">{member.email}</p>
-                    </div>
-                  </div>
-                  <div className="mt-4">
-                    <p className="text-xs text-slate-400 mb-2">Especialidades</p>
-                    <div className="flex flex-wrap gap-1">
-                      {member.specialties && member.specialties.map(function(spec) {
-                        return <Badge key={spec} variant="outline" className="text-xs">{spec}</Badge>;
-                      })}
-                    </div>
-                  </div>
-                  <div className="mt-4 pt-4 border-t border-slate-100">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm text-slate-500">Ocupação</span>
-                      <span className="text-sm font-bold">{(member.capacity_percent || 0).toFixed(0)}%</span>
-                    </div>
-                    <Progress value={Math.min(member.capacity_percent || 0, 100)} className="h-2" />
-                  </div>
-                  <div className="mt-4 grid grid-cols-2 gap-4">
-                    <div className="bg-slate-50 rounded-lg p-3">
-                      <div className="flex items-center gap-2">
-                        <Briefcase className="w-4 h-4 text-slate-600" />
-                        <span className="text-lg font-bold">{member.active_projects || 0}</span>
-                      </div>
-                      <p className="text-xs text-slate-500 mt-1">Projetos</p>
-                    </div>
-                    <div className="bg-slate-50 rounded-lg p-3">
-                      <div className="flex items-center gap-2">
-                        <Clock className="w-4 h-4 text-slate-600" />
-                        <span className="text-lg font-bold">{member.workload_hours || 40}h</span>
-                      </div>
-                      <p className="text-xs text-slate-500 mt-1">Carga</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
+          {team.map((member) => <TeamMemberCard key={member.id} member={member} />)}
         </div>
       ) : (
         <Card>

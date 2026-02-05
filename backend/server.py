@@ -401,6 +401,7 @@ async def create_project(data: ProjectCreate, current_user: dict = Depends(get_c
         impact_score=data.impact_score,
         urgency_score=data.urgency_score,
         cost_score=data.cost_score,
+        desired_deadline=data.desired_deadline,
         stages=[s.model_dump() for s in default_stages]
     )
     

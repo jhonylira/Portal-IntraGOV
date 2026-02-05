@@ -7,19 +7,19 @@ import {
   Loader2,
   FolderKanban 
 } from 'lucide-react';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import { Card, CardContent } from '../ui/card';
+import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
+import { Card, CardContent } from '../components/ui/card';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../ui/select';
-import ProjectCard from '../custom/ProjectCard';
-import { useAuth } from '../../contexts/AuthContext';
-import { getProjects } from '../../services/api';
+} from '../components/ui/select';
+import ProjectCard from '../components/custom/ProjectCard';
+import { useAuth } from '../contexts/AuthContext';
+import { getProjects } from '../services/api';
 
 const ProjectsPage = () => {
   const { isMunicipal } = useAuth();

@@ -6,22 +6,22 @@ import {
   FileText,
   BarChart3
 } from 'lucide-react';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
-import { Textarea } from '../ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../ui/card';
+import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
+import { Label } from '../components/ui/label';
+import { Textarea } from '../components/ui/textarea';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/card';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../ui/select';
-import { Slider } from '../ui/slider';
-import { Badge } from '../ui/badge';
-import { useAuth } from '../../contexts/AuthContext';
-import { diagnoseComplexity } from '../../services/api';
+} from '../components/ui/select';
+import { Slider } from '../components/ui/slider';
+import { Badge } from '../components/ui/badge';
+import { useAuth } from '../contexts/AuthContext';
+import { diagnoseComplexity } from '../services/api';
 import { toast } from 'sonner';
 
 const AIDiagnosisPage = () => {

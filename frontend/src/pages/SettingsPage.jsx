@@ -6,12 +6,12 @@ import {
   Shield,
   Palette
 } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../ui/card';
-import { Button } from '../ui/button';
-import { Switch } from '../ui/switch';
-import { Label } from '../ui/label';
-import { Separator } from '../ui/separator';
-import { useAuth } from '../../contexts/AuthContext';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/card';
+import { Button } from '../components/ui/button';
+import { Switch } from '../components/ui/switch';
+import { Label } from '../components/ui/label';
+import { Separator } from '../components/ui/separator';
+import { useAuth } from '../contexts/AuthContext';
 
 const SettingsPage = () => {
   const { user } = useAuth();

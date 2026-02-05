@@ -8,12 +8,12 @@ import {
   AlertTriangle,
   ChevronRight
 } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Badge } from '../ui/badge';
-import { Progress } from '../ui/progress';
-import StarRating from '../custom/StarRating';
-import { useAuth } from '../../contexts/AuthContext';
-import { getQueue } from '../../services/api';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
+import { Progress } from '../components/ui/progress';
+import StarRating from '../components/custom/StarRating';
+import { useAuth } from '../contexts/AuthContext';
+import { getQueue } from '../services/api';
 
 const statusLabels = {
   validacao: 'Validação',

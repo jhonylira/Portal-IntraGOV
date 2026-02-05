@@ -12,8 +12,8 @@ import {
   PlusCircle,
   Sparkles
 } from 'lucide-react';
-import { useAuth } from '../../contexts/AuthContext';
-import { cn } from '../../lib/utils';
+import { useAuth } from '@/contexts/AuthContext';
+import { cn } from '@/lib/utils';
 
 const Sidebar = () => {
   const { user, logout, isGestor, isTecnico } = useAuth();

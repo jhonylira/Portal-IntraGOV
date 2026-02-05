@@ -173,6 +173,89 @@ class IntraAMVALITester:
         )
         return success, response
 
+    def test_municipal_ai_analysis(self, token):
+        """Test Municipal AI Analysis endpoint - the new orientative AI feature"""
+        analysis_data = {
+            "title": "Pavimentação Rua Municipal",
+            "description": "Projeto de pavimentação asfáltica de 300m",
+            "project_type": "pavimentacao",
+            "location": "Bairro Centro",
+            "scope": "Pavimentação completa com drenagem",
+            "purpose": "Melhorar mobilidade urbana",
+            "impact_score": 7,
+            "urgency_score": 6,
+            "desired_deadline": "medio",
+            "attachments": [
+                {"filename": "topografico.pdf", "file_type": "pdf", "file_size": 1024000},
+                {"filename": "matricula.pdf", "file_type": "pdf", "file_size": 512000}
+            ]
+        }
+        
+        success, response = self.run_test(
+            "Municipal AI Analysis (Orientative)",
+            "POST",
+            "ai/municipal-analysis",
+            200,
+            data=analysis_data,
+            token=token
+        )
+        
+        # Validate response structure for orientative AI
+        if success and response:
+            required_fields = [
+                'information_sufficiency', 'missing_documents', 'estimated_complexity',
+                'deadline_compatibility', 'suggested_deadline_days', 'technical_explanation',
+                'disclaimer'
+            ]
+            for field in required_fields:
+                if field not in response:
+                    print(f"   ⚠️ Missing required field: {field}")
+                    return False, response
+            
+            # Check disclaimer is present (mandatory for orientative AI)
+            if 'orientativ' not in response.get('disclaimer', '').lower():
+                print(f"   ⚠️ Disclaimer missing 'orientativo' keyword")
+                return False, response
+            
+            print(f"   ✅ AI Analysis: {response.get('information_sufficiency', 'N/A')}")
+            print(f"   ✅ Complexity: {response.get('estimated_complexity', 'N/A')}")
+            print(f"   ✅ Suggested deadline: {response.get('suggested_deadline_days', 'N/A')} days")
+            print(f"   ✅ Disclaimer present: {len(response.get('disclaimer', ''))} chars")
+        
+        return success, response
+
+    def test_project_attachments(self, token, project_id):
+        """Test project attachments functionality"""
+        # Test adding attachment
+        attachment_data = {
+            "filename": "projeto_executivo.pdf",
+            "file_type": "pdf",
+            "file_size": 2048000,
+            "file_url": "https://example.com/file.pdf"
+        }
+        
+        success, response = self.run_test(
+            "Add Project Attachment",
+            "POST",
+            f"projects/{project_id}/attachments",
+            200,
+            data=attachment_data,
+            token=token
+        )
+        
+        if success:
+            # Test getting attachments
+            success2, attachments = self.run_test(
+                "Get Project Attachments",
+                "GET",
+                f"projects/{project_id}/attachments",
+                200,
+                token=token
+            )
+            return success2, attachments
+        
+        return success, response
+
 def main():
     print("🚀 Starting IntraAMVALI API Tests")
     print("=" * 50)

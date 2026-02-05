@@ -753,6 +753,200 @@ async def diagnose_complexity(project_data: dict, current_user: dict = Depends(g
         logger.error(f"AI diagnosis error: {e}")
         return {"complexity": "media", "diagnosis": str(e), "confidence": 0.5}
 
+@api_router.post("/ai/municipal-analysis")
+async def municipal_ai_analysis(project_data: dict, current_user: dict = Depends(get_current_user)):
+    """
+    IA Orientativa para Módulo Municipal - Análise informacional sem poder decisório.
+    Avalia suficiência de informações, complexidade estimada e compatibilidade de prazo.
+    """
+    try:
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        import json
+        
+        api_key = os.environ.get('EMERGENT_LLM_KEY')
+        if not api_key:
+            return {
+                "information_sufficiency": "parcialmente_suficiente",
+                "missing_documents": ["Não foi possível avaliar - IA indisponível"],
+                "estimated_complexity": "media",
+                "deadline_compatibility": "indefinido",
+                "suggested_deadline_days": 60,
+                "technical_explanation": "Análise automática indisponível. A solicitação será avaliada pela equipe técnica.",
+                "disclaimer": "Esta análise é meramente orientativa e não constitui aprovação ou compromisso."
+            }
+        
+        # Document requirements by project type
+        required_docs = {
+            "pavimentacao": ["Levantamento topográfico", "Matrícula do imóvel", "Projeto geométrico", "Memorial descritivo"],
+            "edificacao": ["Planta de situação", "Projeto arquitetônico", "Matrícula do terreno", "Estudo de viabilidade"],
+            "infraestrutura": ["Levantamento planialtimétrico", "Estudo hidrológico", "Memorial técnico", "ART/RRT"]
+        }
+        
+        project_type = project_data.get('project_type', 'edificacao')
+        attachments = project_data.get('attachments', [])
+        attachment_names = [a.get('filename', '') for a in attachments] if attachments else []
+        desired_deadline = project_data.get('desired_deadline', 'medio')
+        
+        chat = LlmChat(
+            api_key=api_key,
+            session_id=f"municipal-analysis-{project_data.get('project_id', str(uuid.uuid4())[:8])}",
+            system_message="""Você é um assistente técnico orientativo da AMVALI. Sua função é EXCLUSIVAMENTE CONSULTIVA e EDUCATIVA.
+
+IMPORTANTE: Você NÃO tem poder para:
+- Aprovar ou reprovar solicitações
+- Definir prazos oficiais
+- Alterar prioridades
+- Alocar equipes
+- Tomar decisões administrativas
+
+Sua função é APENAS orientar o solicitante municipal sobre:
+1. Suficiência das informações fornecidas
+2. Documentos usualmente necessários para o tipo de projeto
+3. Estimativa de complexidade (para fins de expectativa)
+4. Compatibilidade entre prazo desejado e natureza do projeto
+
+Responda SEMPRE em JSON com o formato:
+{
+    "information_sufficiency": "suficiente|parcialmente_suficiente|insuficiente",
+    "missing_documents": ["lista de documentos usualmente necessários que não foram identificados"],
+    "estimated_complexity": "minima|media|alta",
+    "deadline_compatibility": "compativel|parcialmente_compativel|incompativel",
+    "suggested_deadline_days": número inteiro (prazo referencial em dias),
+    "technical_explanation": "explicação objetiva e educativa sobre a análise",
+    "recommendations": ["recomendações para melhorar a solicitação"]
+}"""
+        ).with_model("anthropic", "claude-sonnet-4-5-20250929")
+        
+        message = UserMessage(
+            text=f"""Analise esta solicitação municipal de forma ORIENTATIVA (sem aprovar ou reprovar):
+
+DADOS DO PROJETO:
+- Título: {project_data.get('title', 'Não informado')}
+- Tipo: {project_type}
+- Descrição: {project_data.get('description', 'Não informado')}
+- Localização: {project_data.get('location', 'Não informado')}
+- Escopo: {project_data.get('scope', 'Não informado')}
+- Finalidade: {project_data.get('purpose', 'Não informado')}
+- Impacto estimado: {project_data.get('impact_score', 5)}/10
+- Urgência indicada: {project_data.get('urgency_score', 5)}/10
+- Prazo desejado pelo solicitante: {desired_deadline} (baixo/médio/alto)
+
+ARQUIVOS ANEXADOS: {', '.join(attachment_names) if attachment_names else 'Nenhum anexo'}
+
+DOCUMENTOS USUALMENTE NECESSÁRIOS PARA {project_type.upper()}:
+{', '.join(required_docs.get(project_type, []))}
+
+Forneça análise ORIENTATIVA considerando:
+1. As informações estão suficientes para uma análise técnica preliminar?
+2. Quais documentos usualmente necessários não foram identificados?
+3. Qual a complexidade estimada baseada no escopo descrito?
+4. O prazo desejado ({desired_deadline}) é compatível com a natureza do projeto?
+5. Qual seria um prazo referencial razoável (em dias)?
+
+LEMBRE-SE: Esta análise é apenas ORIENTATIVA e será validada por responsável técnico humano."""
+        )
+        
+        response = await chat.send_message(message)
+        
+        try:
+            result = json.loads(response)
+        except:
+            # Parse response if not valid JSON
+            result = {
+                "information_sufficiency": "parcialmente_suficiente",
+                "missing_documents": required_docs.get(project_type, []),
+                "estimated_complexity": "media",
+                "deadline_compatibility": "parcialmente_compativel",
+                "suggested_deadline_days": 45,
+                "technical_explanation": response,
+                "recommendations": []
+            }
+        
+        # Add mandatory disclaimer
+        result["disclaimer"] = "IMPORTANTE: Esta análise possui caráter MERAMENTE REFERENCIAL e ORIENTATIVO. Não constitui aprovação, compromisso ou definição oficial. A solicitação será validada por responsável técnico humano."
+        result["analysis_type"] = "orientativo"
+        result["ai_role"] = "consultivo_educativo"
+        
+        # Save analysis to project if ID provided
+        if project_data.get('project_id'):
+            await db.projects.update_one(
+                {"id": project_data['project_id']},
+                {"$set": {
+                    "ai_analysis": result,
+                    "complexity": result.get('estimated_complexity', 'media'),
+                    "updated_at": datetime.now(timezone.utc).isoformat()
+                }}
+            )
+        
+        return result
+        
+    except Exception as e:
+        logger.error(f"Municipal AI analysis error: {e}")
+        return {
+            "information_sufficiency": "parcialmente_suficiente",
+            "missing_documents": [],
+            "estimated_complexity": "media",
+            "deadline_compatibility": "indefinido",
+            "suggested_deadline_days": 45,
+            "technical_explanation": f"Erro na análise automática: {str(e)}. A solicitação será avaliada pela equipe técnica.",
+            "disclaimer": "Esta análise é meramente orientativa.",
+            "error": True
+        }
+
+# ==================== ATTACHMENT ROUTES ====================
+@api_router.post("/projects/{project_id}/attachments")
+async def upload_attachment(project_id: str, attachment_data: dict, current_user: dict = Depends(get_current_user)):
+    """Upload attachment metadata to project (file stored externally)"""
+    project = await db.projects.find_one({"id": project_id}, {"_id": 0})
+    if not project:
+        raise HTTPException(status_code=404, detail="Project not found")
+    
+    # Validate file type
+    allowed_types = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'dwg', 'dxf', 'jpg', 'jpeg', 'png', 'txt']
+    file_ext = attachment_data.get('filename', '').split('.')[-1].lower()
+    if file_ext not in allowed_types:
+        raise HTTPException(status_code=400, detail=f"Tipo de arquivo não permitido. Tipos aceitos: {', '.join(allowed_types)}")
+    
+    attachment = {
+        "id": str(uuid.uuid4()),
+        "filename": attachment_data.get('filename'),
+        "file_type": file_ext,
+        "file_size": attachment_data.get('file_size', 0),
+        "file_url": attachment_data.get('file_url', ''),
+        "uploaded_by": current_user['id'],
+        "uploaded_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    await db.projects.update_one(
+        {"id": project_id},
+        {
+            "$push": {"attachments": attachment},
+            "$set": {"updated_at": datetime.now(timezone.utc).isoformat()}
+        }
+    )
+    
+    return {"message": "Attachment added", "attachment": attachment}
+
+@api_router.get("/projects/{project_id}/attachments")
+async def get_attachments(project_id: str, current_user: dict = Depends(get_current_user)):
+    """Get all attachments for a project"""
+    project = await db.projects.find_one({"id": project_id}, {"_id": 0, "attachments": 1})
+    if not project:
+        raise HTTPException(status_code=404, detail="Project not found")
+    return {"attachments": project.get('attachments', [])}
+
+@api_router.delete("/projects/{project_id}/attachments/{attachment_id}")
+async def delete_attachment(project_id: str, attachment_id: str, current_user: dict = Depends(get_current_user)):
+    """Delete an attachment from project"""
+    await db.projects.update_one(
+        {"id": project_id},
+        {
+            "$pull": {"attachments": {"id": attachment_id}},
+            "$set": {"updated_at": datetime.now(timezone.utc).isoformat()}
+        }
+    )
+    return {"message": "Attachment deleted"}
+
 @api_router.post("/ai/suggest-allocation")
 async def suggest_allocation(project_data: dict, current_user: dict = Depends(get_current_user)):
     """Use Claude AI to suggest team allocation"""

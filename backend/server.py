@@ -70,6 +70,16 @@ class Priority(int, Enum):
     BAIXA = 2
     MUITO_BAIXA = 1
 
+class DesiredDeadline(str, Enum):
+    BAIXO = "baixo"
+    MEDIO = "medio"
+    ALTO = "alto"
+
+class InformationSufficiency(str, Enum):
+    SUFICIENTE = "suficiente"
+    PARCIALMENTE_SUFICIENTE = "parcialmente_suficiente"
+    INSUFICIENTE = "insuficiente"
+
 # ==================== MODELS ====================
 class UserCreate(BaseModel):
     email: EmailStr

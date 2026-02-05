@@ -15,11 +15,11 @@ import {
   Play,
   Pause
 } from 'lucide-react';
-import { Button } from '../ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Badge } from '../ui/badge';
-import { Progress } from '../ui/progress';
-import { Separator } from '../ui/separator';
+import { Button } from '../components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
+import { Progress } from '../components/ui/progress';
+import { Separator } from '../components/ui/separator';
 import {
   Dialog,
   DialogContent,
@@ -27,18 +27,18 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '../ui/dialog';
+} from '../components/ui/dialog';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../ui/select';
-import StarRating from '../custom/StarRating';
-import RoadmapTimeline from '../custom/RoadmapTimeline';
-import { useAuth } from '../../contexts/AuthContext';
-import { getProject, updateProject, updateProjectStage, diagnoseComplexity, getTeam, allocateTeam } from '../../services/api';
+} from '../components/ui/select';
+import StarRating from '../components/custom/StarRating';
+import RoadmapTimeline from '../components/custom/RoadmapTimeline';
+import { useAuth } from '../contexts/AuthContext';
+import { getProject, updateProject, updateProjectStage, diagnoseComplexity, getTeam, allocateTeam } from '../services/api';
 import { toast } from 'sonner';
 
 const statusLabels = {

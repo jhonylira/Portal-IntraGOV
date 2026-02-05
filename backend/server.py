@@ -151,6 +151,32 @@ class Project(BaseModel):
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+class DesiredDeadline(str, Enum):
+    BAIXO = "baixo"
+    MEDIO = "medio"
+    ALTO = "alto"
+
+class InformationSufficiency(str, Enum):
+    SUFICIENTE = "suficiente"
+    PARCIALMENTE_SUFICIENTE = "parcialmente_suficiente"
+    INSUFICIENTE = "insuficiente"
+
+class ProjectAttachment(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    filename: str
+    file_type: str
+    file_size: int
+    uploaded_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class AIAnalysis(BaseModel):
+    information_sufficiency: InformationSufficiency = InformationSufficiency.PARCIALMENTE_SUFICIENTE
+    missing_documents: List[str] = []
+    estimated_complexity: Optional[Complexity] = None
+    deadline_compatibility: Optional[str] = None
+    suggested_deadline_days: Optional[int] = None
+    technical_explanation: Optional[str] = None
+    analysis_date: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
 class ProjectCreate(BaseModel):
     title: str
     description: str
@@ -163,6 +189,7 @@ class ProjectCreate(BaseModel):
     impact_score: int = 1
     urgency_score: int = 1
     cost_score: int = 1
+    desired_deadline: DesiredDeadline = DesiredDeadline.MEDIO
 
 class ProjectUpdate(BaseModel):
     title: Optional[str] = None

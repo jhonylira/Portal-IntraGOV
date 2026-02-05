@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Calendar, Users, ChevronRight } from 'lucide-react';
-import { Badge } from '../ui/badge';
-import { Progress } from '../ui/progress';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
 import StarRating from './StarRating';
-import { cn } from '../../lib/utils';
+import { cn } from '@/lib/utils';
 
 const statusLabels = {
   rascunho: 'Rascunho',

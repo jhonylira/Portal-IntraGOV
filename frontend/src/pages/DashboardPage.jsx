@@ -10,12 +10,12 @@ import {
   ListOrdered,
   Loader2
 } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Progress } from '../ui/progress';
-import MetricCard from '../custom/MetricCard';
-import ProjectCard from '../custom/ProjectCard';
-import { useAuth } from '../../contexts/AuthContext';
-import { getDashboardStats, getProjects, getMunicipalityDashboard } from '../../services/api';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { Progress } from '../components/ui/progress';
+import MetricCard from '../components/custom/MetricCard';
+import ProjectCard from '../components/custom/ProjectCard';
+import { useAuth } from '../contexts/AuthContext';
+import { getDashboardStats, getProjects, getMunicipalityDashboard } from '../services/api';
 import { 
   BarChart, 
   Bar, 

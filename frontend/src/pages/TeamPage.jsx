@@ -8,11 +8,11 @@ import {
   AlertTriangle,
   CheckCircle2
 } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Badge } from '../ui/badge';
-import { Progress } from '../ui/progress';
-import { useAuth } from '../../contexts/AuthContext';
-import { getTeam } from '../../services/api';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
+import { Progress } from '../components/ui/progress';
+import { useAuth } from '../contexts/AuthContext';
+import { getTeam } from '../services/api';
 
 const TeamPage = () => {
   const { isGestor } = useAuth();

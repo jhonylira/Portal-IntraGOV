@@ -210,6 +210,7 @@ class ProjectUpdate(BaseModel):
     impact_score: Optional[int] = None
     urgency_score: Optional[int] = None
     cost_score: Optional[int] = None
+    desired_deadline: Optional[DesiredDeadline] = None
 
 class Notification(BaseModel):
     model_config = ConfigDict(extra="ignore")

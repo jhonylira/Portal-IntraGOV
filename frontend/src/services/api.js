@@ -31,6 +31,12 @@ export const allocateTeam = (data) => axios.post(`${API}/team/allocate`, data);
 // AI
 export const diagnoseComplexity = (data) => axios.post(`${API}/ai/diagnose-complexity`, data);
 export const suggestAllocation = (data) => axios.post(`${API}/ai/suggest-allocation`, data);
+export const municipalAIAnalysis = (data) => axios.post(`${API}/ai/municipal-analysis`, data);
+
+// Attachments
+export const uploadAttachment = (projectId, data) => axios.post(`${API}/projects/${projectId}/attachments`, data);
+export const getAttachments = (projectId) => axios.get(`${API}/projects/${projectId}/attachments`);
+export const deleteAttachment = (projectId, attachmentId) => axios.delete(`${API}/projects/${projectId}/attachments/${attachmentId}`);
 
 // Notifications
 export const getNotifications = () => axios.get(`${API}/notifications`);

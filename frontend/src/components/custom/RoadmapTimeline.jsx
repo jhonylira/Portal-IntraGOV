@@ -1,6 +1,6 @@
 import React from 'react';
 import { Check, Circle, Loader2 } from 'lucide-react';
-import { cn } from '../../lib/utils';
+import { cn } from '@/lib/utils';
 
 export const RoadmapTimeline = ({ stages = [], onStageClick, readonly = false }) => {
   const getStatusIcon = (status) => {

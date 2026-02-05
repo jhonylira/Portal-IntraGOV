@@ -7,11 +7,11 @@ import {
   AlertTriangle,
   FolderKanban
 } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Button } from '../ui/button';
-import { Badge } from '../ui/badge';
-import { useAuth } from '../../contexts/AuthContext';
-import { getNotifications, markNotificationRead } from '../../services/api';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { Button } from '../components/ui/button';
+import { Badge } from '../components/ui/badge';
+import { useAuth } from '../contexts/AuthContext';
+import { getNotifications, markNotificationRead } from '../services/api';
 import { Link } from 'react-router-dom';
 
 const NotificationsPage = () => {

@@ -323,6 +323,12 @@ def main():
                     "cost_score": project['cost_score']
                 }
                 tester.test_ai_diagnosis(gestor_token, ai_data)
+                
+                # Test Municipal AI Analysis (new orientative feature)
+                tester.test_municipal_ai_analysis(gestor_token)
+                
+                # Test project attachments
+                tester.test_project_attachments(gestor_token, project['id'])
     
     # Test with Técnico token
     tecnico_token = tester.tokens.get("tecnico")

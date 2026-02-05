@@ -136,23 +136,24 @@ class IntraAMVALITester:
         return success, response
 
     def test_create_project(self, token, municipality_id):
-        """Test project creation"""
+        """Test project creation with Municipal Module features"""
         project_data = {
-            "title": "Teste Pavimentação API",
-            "description": "Projeto de teste criado via API",
+            "title": "Teste Módulo Municipal",
+            "description": "Projeto de teste para o novo módulo municipal com IA orientativa",
             "project_type": "pavimentacao",
             "municipality_id": municipality_id,
-            "priority": 3,
+            "priority": 4,
             "location": "Centro da cidade",
-            "scope": "Pavimentação de 200m",
-            "purpose": "Melhorar mobilidade urbana",
-            "impact_score": 6,
-            "urgency_score": 5,
-            "cost_score": 4
+            "scope": "Pavimentação de 200m com drenagem",
+            "purpose": "Melhorar mobilidade urbana e acessibilidade",
+            "impact_score": 7,
+            "urgency_score": 6,
+            "cost_score": 5,
+            "desired_deadline": "medio"  # New field for Municipal Module
         }
         
         success, response = self.run_test(
-            "Create Project",
+            "Create Project (Municipal Module)",
             "POST",
             "projects",
             201,

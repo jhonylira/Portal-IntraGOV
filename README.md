@@ -1,296 +1,329 @@
-```markdown
----
+# 🏛 Portal IntraGOV — Plataforma de Gestão de Demandas Técnicas Municipais
 
-## 🧩 Padrões de Desenvolvimento
+## 📌 Sobre o Projeto
 
-Este projeto adota padrões modernos de engenharia de software visando escalabilidade, manutenção facilitada e compatibilidade com ferramentas de Inteligência Artificial.
+O **Portal IntraGOV** é um protótipo de plataforma digital desenvolvido para modernizar, padronizar e automatizar o fluxo de solicitações técnicas entre os municípios consorciados e a equipe técnica da **AMVALI (Associação dos Municípios do Vale do Itapocu)**.
 
-### 📐 Princípios Arquiteturais
-
-- Separação clara entre frontend e backend
-- Modularização por domínio funcional
-- Versionamento semântico
-- Código orientado a testes
-- Documentação contínua
-- Estrutura preparada para microserviços (futuro)
+A solução busca melhorar a governança pública, reduzir retrabalho, organizar a alocação de equipes técnicas e fornecer suporte estratégico para tomada de decisão baseada em dados.
 
 ---
 
-## 🗂 Convenções de Organização de Código
+## 🎯 Objetivos
 
-### Backend
-```
+### Estratégicos
+- Digitalizar solicitações técnicas municipais
+- Melhorar eficiência operacional
+- Criar base estruturada de dados regionais
+- Implantar governança digital intermunicipal
+- Preparar base para automação com Inteligência Artificial
 
-backend/
-├── controllers/      # Controladores de requisições
-├── services/         # Regras de negócio
-├── repositories/     # Persistência de dados
-├── models/           # Estruturas de dados
-├── routes/           # Definição de endpoints
-├── middlewares/      # Autenticação e validações
-└── utils/            # Funções auxiliares
-
-```
-
----
-
-### Frontend
-```
-
-frontend/
-├── components/       # Componentes reutilizáveis
-├── pages/            # Telas e rotas
-├── services/         # Integração com API
-├── hooks/            # Hooks customizados
-├── styles/           # Estilos e temas
-└── utils/            # Funções auxiliares
-
-```
+### Operacionais
+- Centralizar demandas em portal único
+- Automatizar validação documental
+- Controlar prazos e prioridades
+- Monitorar capacidade produtiva da equipe técnica
+- Registrar histórico e rastreabilidade das decisões técnicas
 
 ---
 
-## 🌿 Estratégia de Versionamento e Branches
+## 👥 Perfis de Usuário
 
-O projeto segue o modelo **Git Flow Simplificado**.
-
-### Branches Principais
-
-- `main` → Produção estável
-- `develop` → Desenvolvimento contínuo
-- `feature/*` → Novas funcionalidades
-- `fix/*` → Correções de bugs
-- `hotfix/*` → Correções emergenciais
+### 🏛 Município Solicitante
+- Criar solicitações técnicas
+- Anexar documentos complementares
+- Definir nível de prioridade
+- Acompanhar andamento do projeto
+- Receber parecer técnico
 
 ---
 
-### Padrão de Commits
+### 👨‍💻 Equipe Técnica AMVALI
+- Analisar solicitações
+- Validar documentação
+- Planejar execução dos projetos
+- Atualizar status das demandas
+- Emitir parecer técnico
 
-Sugere-se utilizar o padrão **Conventional Commits**:
+---
 
-```
+### 📊 Gestão / Coordenação
+- Monitorar carga de trabalho
+- Realocar equipes
+- Definir prioridades estratégicas
+- Acompanhar indicadores produtivos
+- Gerenciar governança da plataforma
+
+---
+
+## ⚙ Funcionalidades Principais
+
+### Gestão de Demandas
+- Cadastro estruturado de solicitações
+- Classificação por complexidade e prioridade
+- Controle de status e prazos
+- Histórico completo das solicitações
+
+### Planejamento Técnico
+- Distribuição de tarefas
+- Monitoramento da execução
+- Controle de capacidade produtiva
+- Painéis de acompanhamento
+
+### Governança e Transparência
+- Registro de decisões técnicas
+- Auditoria institucional
+- Relatórios gerenciais
+- Indicadores estratégicos
+
+---
+
+## 🧱 Arquitetura da Plataforma
+
+O sistema utiliza arquitetura modular baseada em separação de responsabilidades.
+
+Usuários → Frontend → Backend → Banco de Dados
+↓
+Camada de Inteligência Artificial
+
+---
+
+## 🖥 Estrutura do Projeto
+
+Portal-IntraGOV/
+│
+├── backend/ → API e regras de negócio
+├── frontend/ → Interface web responsiva
+├── tests/ → Testes automatizados
+├── reports/ → Relatórios gerenciais
+├── emergent/ → Configurações e memória IA
+└── README.md
+
+---
+
+## 🧪 Testes
+
+O projeto utiliza testes automatizados para garantir:
+
+- Estabilidade das funcionalidades
+- Segurança dos dados
+- Integridade das regras técnicas
+- Confiabilidade das integrações
+
+---
+
+## 🔐 Segurança e Governança
+
+A plataforma segue princípios de:
+
+- Controle de acesso por perfil
+- Registro e rastreamento de alterações
+- Auditoria de decisões técnicas
+- Proteção de dados institucionais
+- Conformidade com boas práticas da LGPD
+
+---
+
+## 🤖 Integração com Inteligência Artificial
+
+A plataforma prevê suporte IA para:
+
+- Validação automática de solicitações
+- Classificação de prioridade
+- Estimativa de esforço técnico
+- Geração de parecer técnico preliminar
+- Monitoramento de produtividade
+- Sugestões de realocação de equipes
+
+---
+
+## 📦 Como Executar o Projeto
+
+### Pré-Requisitos
+- Node.js
+- Gerenciador de pacotes (npm ou similar)
+
+---
+
+### Clonar Repositório
+
+git clone https://github.com/jhonylira/Portal-IntraGOV.git
+
+cd Portal-IntraGOV
+
+---
+
+### Executar Backend
+
+cd backend
+npm install
+npm run dev
+
+---
+
+### Executar Frontend
+
+cd frontend
+npm install
+npm run dev
+
+---
+
+## 🌿 Versionamento e Branches
+
+O projeto segue modelo simplificado de versionamento Git:
+
+- main → Produção
+- develop → Desenvolvimento
+- feature/* → Novas funcionalidades
+- fix/* → Correções
+
+---
+
+## 🧾 Padrão de Commits
 
 feat: nova funcionalidade
 fix: correção de bug
-docs: alteração na documentação
-style: ajustes visuais ou formatação
-refactor: melhoria estrutural sem alterar funcionalidade
-test: inclusão ou ajuste de testes
-chore: tarefas administrativas
-
-```
+docs: documentação
+refactor: melhoria estrutural
+test: testes
+chore: ajustes administrativos
 
 ---
 
-## 🧪 Estratégia de Testes
+## 🌐 Visão de Futuro
 
-### Tipos de Testes Utilizados
+O Portal IntraGOV possui potencial para evoluir para:
 
-- Testes unitários
-- Testes de integração
-- Testes de API
-- Testes de interface (planejado)
-
----
-
-### Execução de Testes
-
-```
-
-npm run test
-
-```
+- Plataforma SaaS intermunicipal
+- Sistema regional de governança técnica
+- Base estratégica de dados territoriais
+- Ecossistema digital para consórcios públicos
 
 ---
 
-## ⚙ Configuração de Variáveis de Ambiente
+## 🚀 Roadmap
 
-O projeto utiliza variáveis de ambiente para garantir segurança e flexibilidade de implantação.
+### Fase 1 — Protótipo
+- Portal funcional
+- Cadastro de solicitações
+- Monitoramento básico
 
-### Criar arquivo `.env`
+### Fase 2 — Automação Inteligente
+- IA assistiva
+- Validação automatizada
+- Dashboards analíticos
 
-Exemplo:
-
-```
-
-PORT=3000
-DATABASE_URL=seu_banco_de_dados
-JWT_SECRET=sua_chave_secreta
-API_KEY_AI=chave_servico_ia
-
-```
-
-⚠ Nunca versionar arquivos `.env` reais.
+### Fase 3 — Plataforma Regional
+- Integração entre municípios
+- API institucional pública
+- Indicadores regionais integrados
 
 ---
 
-## 🔄 Integração Contínua e Deploy (Planejado)
+## 🤝 Contribuição
 
-O projeto está preparado para integração com pipelines CI/CD.
+Contribuições são bem-vindas.
 
-### Futuras Integrações
-- GitHub Actions
-- Deploy automatizado
-- Testes automatizados em pipeline
-- Análise estática de código
-- Monitoramento de qualidade
-
----
-
-## 🤖 Compatibilidade com Engenharia Assistida por IA
-
-Este repositório foi estruturado para facilitar leitura, interpretação e automação por agentes de Inteligência Artificial.
-
-Compatível com:
-
-- Antigravity AI
-- Emergent Agent
-- Ferramentas de análise automatizada
-- Sistemas de geração assistida de código
+Diretrizes:
+- Seguir boas práticas de desenvolvimento
+- Documentar novas funcionalidades
+- Criar testes automatizados
+- Manter organização modular
 
 ---
 
-## 📊 Modelo de Governança do Projeto
+## 📄 Licenciamento
 
-O desenvolvimento segue modelo colaborativo com validação institucional.
-
-### Responsabilidades
-
-| Papel | Responsabilidade |
-|--------|----------------|
-| Coordenação Técnica | Definição estratégica e validação |
-| Equipe de Desenvolvimento | Implementação técnica |
-| Municípios Usuários | Validação funcional |
-| Gestão AMVALI | Governança institucional |
+Licenciamento será definido conforme estratégia institucional futura.
 
 ---
 
-## 📚 Documentação Complementar
+## 👨‍💼 Autor do Projeto
 
-A documentação detalhada deve ser mantida na pasta:
-
-```
-
-docs/
-
-```
-
-Documentos recomendados:
-
-- Arquitetura do Sistema
-- Fluxos Operacionais
-- Regras de Negócio
-- Manual do Usuário
-- Manual Técnico
-- Diagramas C4
-- BPMN de Processos
+Jhony Lira  
+Arquiteto e Urbanista  
+Desenvolvedor de soluções digitais para gestão pública
 
 ---
 
-## 🧭 Fluxo Operacional da Plataforma (Resumo)
+## 🏛 Instituição
 
-```
-
-Município cria solicitação
-↓
-Sistema valida documentação
-↓
-Equipe técnica analisa
-↓
-Gestão define prioridade
-↓
-Equipe executa projeto
-↓
-Sistema registra progresso
-↓
-Município acompanha resultados
-
-```
+Associação dos Municípios do Vale do Itapocu — AMVALI
 
 ---
 
-## 📈 Indicadores Estratégicos Monitorados (Planejado)
+## ⭐ Status do Projeto
 
-- Volume de solicitações por município
-- Tempo médio de análise técnica
-- Tempo médio de execução de projetos
-- Taxa de retrabalho documental
-- Capacidade produtiva da equipe técnica
-- Engajamento institucional dos municípios
+🚧 Protótipo em desenvolvimento  
+📈 Evolução contínua  
+🤖 Preparado para integração com Inteligência Artificial
 
 ---
 
-## 🌎 Possibilidades de Expansão
+## 🌐 Visão de Futuro
 
-- Integração com SIG e GIS territoriais
-- Integração com sistemas estaduais
-- Integração com plataformas federais
-- Expansão para consórcios intermunicipais
-- Plataforma GovTech escalável
+O Portal IntraGOV possui potencial para evoluir para:
 
----
-
-## 🧾 Registro de Decisões Técnicas (ADR)
-
-Decisões arquiteturais importantes devem ser registradas em:
-
-```
-
-docs/adr/
-
-```
-
-Cada ADR deve conter:
-
-- Contexto
-- Decisão tomada
-- Alternativas avaliadas
-- Impactos técnicos
+- Plataforma SaaS intermunicipal
+- Sistema regional de governança técnica
+- Base estratégica de dados territoriais
+- Ecossistema digital para consórcios públicos
 
 ---
 
-## 📜 Histórico de Versões
+## 🚀 Roadmap
 
-O histórico do projeto segue versionamento semântico.
+### Fase 1 — Protótipo
+- Portal funcional
+- Cadastro de solicitações
+- Monitoramento básico
 
-Formato:
+### Fase 2 — Automação Inteligente
+- IA assistiva
+- Validação automatizada
+- Dashboards analíticos
 
-```
-
-MAJOR.MINOR.PATCH
-
-```
-
-Exemplo:
-
-- 1.0.0 → Versão inicial estável
-- 1.1.0 → Nova funcionalidade
-- 1.1.1 → Correção de bug
-
----
-
-## 🧠 Filosofia do Projeto
-
-O Portal IntraGOV foi concebido com base nos princípios:
-
-- Governança pública eficiente
-- Transparência institucional
-- Uso estratégico de dados
-- Integração regional
-- Inovação tecnológica aplicada à gestão pública
+### Fase 3 — Plataforma Regional
+- Integração entre municípios
+- API institucional pública
+- Indicadores regionais integrados
 
 ---
 
-## 🙌 Agradecimentos
+## 🤝 Contribuição
 
-Projeto desenvolvido com foco na modernização da gestão pública municipal e fortalecimento da cooperação intermunicipal.
+Contribuições são bem-vindas.
+
+Diretrizes:
+- Seguir boas práticas de desenvolvimento
+- Documentar novas funcionalidades
+- Criar testes automatizados
+- Manter organização modular
 
 ---
 
-## 📌 Observações Finais
+## 📄 Licenciamento
 
-Este repositório representa um protótipo em evolução contínua.  
-Novas funcionalidades, integrações e melhorias estruturais serão incorporadas progressivamente conforme validação institucional e evolução tecnológica.
+Licenciamento será definido conforme estratégia institucional futura.
 
 ---
-```
 
+## 👨‍💼 Autor do Projeto
+
+Jhony Lira  
+Arquiteto e Urbanista  
+Desenvolvedor de soluções digitais para gestão pública
+
+---
+
+## 🏛 Instituição
+
+Associação dos Municípios do Vale do Itapocu — AMVALI
+
+---
+
+## ⭐ Status do Projeto
+
+🚧 Protótipo em desenvolvimento  
+📈 Evolução contínua  
+🤖 Preparado para integração com Inteligência Artificial
